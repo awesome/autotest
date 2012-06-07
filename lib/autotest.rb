@@ -163,18 +163,19 @@ class Autotest
 
   def self.runner
 #    style = options[:style] || Autotest.autodiscover
+    style = options[:style] || []
     target = Autotest
 
-#    unless style.empty? then
-#      mod = "autotest/#{style.join "_"}"
-#      puts "loading #{mod}"
-#      begin
-#        require mod
-#      rescue LoadError => e
-#        abort "Error loading Autotest style #{mod} (#{e.to_s}). Aborting."
-#      end
-#      target = Autotest.const_get(style.map {|s| s.capitalize}.join)
-#    end
+    unless style.empty? then
+      mod = "autotest/#{style.join "_"}"
+      puts "loading #{mod}"
+      begin
+        require mod
+      rescue LoadError => e
+        abort "Error loading Autotest style #{mod} (#{e.to_s}). Aborting."
+      end
+      target = Autotest.const_get(style.map {|s| s.capitalize}.join)
+    end
 
     target
   end

@@ -87,6 +87,7 @@ class TestAutotestIntegration < Test::Unit::TestCase
         write('test/test_a.rb', "require 'test/unit';print 'YES'")
         write('test/test_b.rb', "require 'test/unit';print 'YEP'")
         result = run_autotest('--parallel')
+        puts "https://github.com/awesome/purdytest/issues/1"
         assert_match %r{YES}, result
         assert_match %r{YEP}, result
       end
