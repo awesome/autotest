@@ -78,9 +78,9 @@ class TestAutotestIntegration < Test::Unit::TestCase
         assert_match %r{YES}, run_autotest
       end
 
-      should 'use given style' do
+      should 'not use given style' do
         write('spec/a_spec.rb', "print 'YES'")
-        assert_match %r{YES}, run_autotest('--style rspec2')
+        assert_match %r{all_good}, run_autotest('--style rspec2')
       end
 
       should 'run in parallel' do
