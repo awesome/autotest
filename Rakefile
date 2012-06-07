@@ -15,7 +15,6 @@ task :autotest do
   ruby "-Ilib -w ./bin/autotest"
 end
 
-#TODO exclude /usr/ folder
 #TODO improve coverage ? only 20% atm...
 desc "show rcov report"
 task :rcov_info do
