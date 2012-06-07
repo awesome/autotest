@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:awesome/purdytest.git
+  revision: b3a0d3744147b6540a4e28c3e61420cbfa43ab6b
+  branch: gemspec
+  specs:
+    purdytest (1.1.0)
+      minitest (>= 2.2.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -7,6 +15,7 @@ GEM
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
+    minitest (3.0.1)
     parallel (0.5.11)
     parallel_tests (0.6.11)
       parallel
@@ -27,6 +36,7 @@ PLATFORMS
 DEPENDENCIES
   jeweler
   parallel_tests
+  purdytest!
   rake
   rspec (~> 2)
   shoulda

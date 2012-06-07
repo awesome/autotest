@@ -162,7 +162,8 @@ class Autotest
   # Can be overridden with --style, otherwise uses ::autodiscover.
 
   def self.runner
-    style = options[:style] || Autotest.autodiscover
+#    style = options[:style] || Autotest.autodiscover
+    style = options[:style] || []
     target = Autotest
 
     unless style.empty? then
@@ -179,55 +180,55 @@ class Autotest
     target
   end
 
-  ##
-  # Add a proc to the collection of discovery procs. See
-  # +autodiscover+.
-
-  def self.add_discovery &proc
-    @@discoveries << proc
-  end
-
-  ##
-  # Automatically find all potential autotest runner styles by
-  # searching your loadpath, vendor/plugins, and rubygems for
-  # "autotest/discover.rb". If found, that file is loaded and it
-  # should register discovery procs with autotest using
-  # +add_discovery+. That proc should return one or more strings
-  # describing the user's current environment. Those styles are then
-  # combined to dynamically invoke an autotest plugin to suite your
-  # environment. That plugin should define a subclass of Autotest with
-  # a corresponding name.
-  #
-  # === Process:
-  #
-  # 1. All autotest/discover.rb files loaded.
-  # 2. Those procs determine your styles (eg ["rails", "rspec"]).
-  # 3. Require file by sorting styles and joining (eg 'autotest/rails_rspec').
-  # 4. Invoke run method on appropriate class (eg Autotest::RailsRspec.run).
-  #
-  # === Example autotest/discover.rb:
-  #
-  #   Autotest.add_discovery do
-  #     "rails" if File.exist? 'config/environment.rb'
-  #   end
-  #
-  def self.autodiscover
-    require 'rubygems'
-    begin
-      require 'win32console' if WINDOZE
-    rescue LoadError
-    end
-
-    with_current_path_in_load_path do
-      # search load paths for autotest/discover.rb and load em all
-      Gem.find_files("autotest/discover").each do |f|
-        load f
-      end
-    end
-
-    #call all discover procs an determine style
-    @@discoveries.map{ |proc| proc.call }.flatten.compact.sort.uniq
-  end
+#  ##
+#  # Add a proc to the collection of discovery procs. See
+#  # +autodiscover+.
+#
+#  def self.add_discovery &proc
+#    @@discoveries << proc
+#  end
+#
+#  ##
+#  # Automatically find all potential autotest runner styles by
+#  # searching your loadpath, vendor/plugins, and rubygems for
+#  # "autotest/discover.rb". If found, that file is loaded and it
+#  # should register discovery procs with autotest using
+#  # +add_discovery+. That proc should return one or more strings
+#  # describing the user's current environment. Those styles are then
+#  # combined to dynamically invoke an autotest plugin to suite your
+#  # environment. That plugin should define a subclass of Autotest with
+#  # a corresponding name.
+#  #
+#  # === Process:
+#  #
+#  # 1. All autotest/discover.rb files loaded.
+#  # 2. Those procs determine your styles (eg ["rails", "rspec"]).
+#  # 3. Require file by sorting styles and joining (eg 'autotest/rails_rspec').
+#  # 4. Invoke run method on appropriate class (eg Autotest::RailsRspec.run).
+#  #
+#  # === Example autotest/discover.rb:
+#  #
+#  #   Autotest.add_discovery do
+#  #     "rails" if File.exist? 'config/environment.rb'
+#  #   end
+#  #
+#  def self.autodiscover
+#    require 'rubygems'
+#    begin
+#      require 'win32console' if WINDOZE
+#    rescue LoadError
+#    end
+#
+#    with_current_path_in_load_path do
+#      # search load paths for autotest/discover.rb and load em all
+#      Gem.find_files("autotest/discover").each do |f|
+#        load f
+#      end
+#    end
+#
+#    #call all discover procs an determine style
+#    @@discoveries.map{ |proc| proc.call }.flatten.compact.sort.uniq
+#  end
 
   ##
   # Initialize and run the system.

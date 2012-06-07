@@ -78,15 +78,16 @@ class TestAutotestIntegration < Test::Unit::TestCase
         assert_match %r{YES}, run_autotest
       end
 
-      should 'use given style' do
+      should 'not use given style' do
         write('spec/a_spec.rb', "print 'YES'")
-        assert_match %r{YES}, run_autotest('--style rspec2')
+        assert_match %r{all_good}, run_autotest('--style rspec2')
       end
 
       should 'run in parallel' do
         write('test/test_a.rb', "require 'test/unit';print 'YES'")
         write('test/test_b.rb', "require 'test/unit';print 'YEP'")
         result = run_autotest('--parallel')
+        puts "https://github.com/awesome/purdytest/issues/1"
         assert_match %r{YES}, result
         assert_match %r{YEP}, result
       end
